@@ -11,8 +11,29 @@ config_version=5
 [application]
 
 config/name="Worms"
+run/main_scene="uid://b15v5y7gytf48"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Global="*uid://bojy1y31xoak3"
+
+[display]
+
+window/size/resizable=false
+
+[global_group]
+
+Worm=""
+Destructible=""
+
+[layer_names]
+
+2d_physics/layer_1="Worm"
+2d_physics/layer_2="Terrain"
+2d_physics/layer_3="Missile"
+2d_physics/layer_4="Explosion"
 
 [physics]
 

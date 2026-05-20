@@ -1,20 +1,42 @@
 [gd_scene format=3 uid="uid://siacw3omdria"]
 
 [ext_resource type="Texture2D" uid="uid://bao2xprwfo5oj" path="res://Entities/Missile/Missile.png" id="1_3i05i"]
+[ext_resource type="Script" uid="uid://cni2xv8ynq3jg" path="res://Entities/Missile/missile.gd" id="1_kyyaa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kyyaa"]
 size = Vector2(66, 20)
 
-[node name="Missile" type="Node2D" unique_id=860903930]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bjh0i"]
+size = Vector2(66, 20)
+
+[node name="Missile" type="RigidBody2D" unique_id=1257333313]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_kyyaa")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1574229191]
 texture_filter = 1
 texture_repeat = 1
 texture = ExtResource("1_3i05i")
 
-[node name="Area2D" type="Area2D" parent="." unique_id=1123486726]
+[node name="MissileArea" type="Area2D" parent="." unique_id=1123486726]
+collision_layer = 4
+collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=311736895]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MissileArea" unique_id=311736895]
 shape = SubResource("RectangleShape2D_kyyaa")
 
-[node name="Polygon2D" type="Polygon2D" parent="." unique_id=1104820753]
+[node name="ExplosionArea" type="Area2D" parent="." unique_id=91480532]
+collision_layer = 8
+collision_mask = 3
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ExplosionArea" unique_id=1703134222]
+position = Vector2(43, -27)
+polygon = PackedVector2Array(-44, -73, -162.6298, -57, -184, 29, -154.31917, 111, -45, 130, 70.06809, 115, 95, 27, 76.004265, -56)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1279713604]
+shape = SubResource("RectangleShape2D_bjh0i")
+
+[connection signal="body_entered" from="MissileArea" to="." method="_on_missile_area_body_entered"]
+[connection signal="body_entered" from="ExplosionArea" to="." method="_on_explosion_area_body_entered"]
+[connection signal="body_exited" from="ExplosionArea" to="." method="_on_explosion_area_body_exited"]

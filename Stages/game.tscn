@@ -1,3 +1,21 @@
 [gd_scene format=3 uid="uid://b15v5y7gytf48"]
 
+[ext_resource type="Script" uid="uid://h2qnoukg4k2x" path="res://Stages/game.gd" id="1_guujs"]
+[ext_resource type="PackedScene" uid="uid://dhjgmybhrtjt8" path="res://Entities/Worm/worm.tscn" id="2_0adbh"]
+[ext_resource type="PackedScene" uid="uid://cl1b8wu2o5r0y" path="res://Stages/levels/terrain.tscn" id="2_4idsg"]
+[ext_resource type="PackedScene" uid="uid://dcshmw4hvwq4j" path="res://UI/camera.tscn" id="3_4idsg"]
+
 [node name="Game" type="Node2D" unique_id=1412283554]
+script = ExtResource("1_guujs")
+
+[node name="Terrain" parent="." unique_id=138426319 instance=ExtResource("2_4idsg")]
+
+[node name="Camera" parent="." unique_id=146307843 instance=ExtResource("3_4idsg")]
+
+[node name="Worms" type="Node2D" parent="." unique_id=354063855]
+
+[node name="Worm" parent="Worms" unique_id=1343384529 instance=ExtResource("2_0adbh")]
+position = Vector2(-20, 431)
+
+[node name="Worm2" parent="Worms" unique_id=1142802411 instance=ExtResource("2_0adbh")]
+position = Vector2(654, 437)
