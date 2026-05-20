@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://siacw3omdria"]
+
+[ext_resource type="Texture2D" uid="uid://bao2xprwfo5oj" path="res://Entities/Missile/Missile.png" id="1_3i05i"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kyyaa"]
+size = Vector2(66, 20)
+
+[node name="Missile" type="Node2D" unique_id=860903930]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1574229191]
+texture_filter = 1
+texture_repeat = 1
+texture = ExtResource("1_3i05i")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1123486726]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=311736895]
+shape = SubResource("RectangleShape2D_kyyaa")
+
+[node name="Polygon2D" type="Polygon2D" parent="." unique_id=1104820753]
