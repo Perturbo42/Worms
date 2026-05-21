@@ -1,9 +1,27 @@
 class_name Worm extends CharacterBody2D
+@onready var timer: Timer = $Timer
 
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 
+enum Weapons{
+	Missile,
+	Grenade
+}
+
+var bullet_velocity := 600.0
 var is_active: bool = false
+var curr_weapon: Weapons = Weapons.Missile
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		if !event.is_pressed(): return
+		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
+			bullet_velocity += 20
+			bullet_velocity = clamp(bullet_velocity, 100, 1500)
+		if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+			bullet_velocity -= 20
+			bullet_velocity = clamp(bullet_velocity, 100, 1500)
 
 func _physics_process(delta: float) -> void:
 	if !is_active:
