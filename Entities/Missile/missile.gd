@@ -1,6 +1,7 @@
 class_name Missile extends RigidBody2D
 @onready var explosion: CollisionPolygon2D = $ExplosionArea/CollisionPolygon2D
 
+var gravity:float = 0.0
 var velocity:Vector2 = Vector2.ZERO
 var hurt:Array[Worm] = []
 var explosion_force: float = 350.0
@@ -17,13 +18,14 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 func _physics_process(delta: float) -> void:
-	velocity.y += get_gravity().y * delta
+	velocity.y += gravity * delta
 	position += velocity * delta
 	rotation = velocity.angle()
 
 func explode(collider: Node2D):
 	for x in hurt:
-		x.apply_central_impulse((x.global_position - global_position).normalized() * explosion_force)
+		var direction = (x.global_position - global_position).normalized()
+		x.velocity += direction * 500
 	
 	if collider.is_in_group("Destructible"):
 		collider.owner.clip(explosion)

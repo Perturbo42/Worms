@@ -7,18 +7,27 @@ func _ready() -> void:
 	destructible.polygon = polygon_2d.polygon
 	pass # Replace with function body.
 
-func clip(poly: Polygon2D):
-	var offset_poly = Polygon2D.new()
+func clip(poly: CollisionPolygon2D):
 	
-	offset_poly.polygon = poly.global_transform * poly.polygon
-	var res = Geometry2D.clip_polygons(polygon_2d.polygon, offset_poly.polygon)
-	
+	var base_poly := PackedVector2Array()
+	for p in polygon_2d.polygon:
+		base_poly.append(polygon_2d.global_transform * p)
+
+	var clip_poly := PackedVector2Array()
+	for p in poly.polygon:
+		clip_poly.append(poly.global_transform * p)
+
+	var res = Geometry2D.clip_polygons(base_poly, clip_poly)
+
 	if res.is_empty():
 		polygon_2d.polygon.clear()
 		destructible.set_deferred("polygon", PackedVector2Array())
 		return
-	
-	polygon_2d.polygon = res[0]
-	destructible.set_deferred("polygon", res[0])
-	
-	offset_poly.queue_free()
+
+	# Convert result back into local space
+	var final_poly := PackedVector2Array()
+	for p in res[0]:
+		final_poly.append(polygon_2d.global_transform.affine_inverse() * p)
+
+	polygon_2d.polygon = final_poly
+	destructible.set_deferred("polygon", final_poly)

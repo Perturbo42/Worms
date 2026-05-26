@@ -1,9 +1,9 @@
 class_name Worm extends CharacterBody2D
 @onready var timer: Timer = $Timer
-
+const MISSILE = preload("uid://siacw3omdria")
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
-
+const GRAVITY = 400.0
 enum Weapons{
 	Missile,
 	Grenade
@@ -25,7 +25,16 @@ func _input(event: InputEvent) -> void:
 
 func _physics_process(delta: float) -> void:
 	if !is_active:
+		#apply gravity, apply knockback
 		return
+	
+	if Input.is_action_just_pressed("shoot"):
+		if curr_weapon == Weapons.Missile:
+			var missile = MISSILE.instantiate()
+			get_parent().add_child(missile)
+			missile.transform = global_transform
+			missile.velocity = bullet_velocity * missile.transform.x
+			missile.gravity = GRAVITY
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
