@@ -24,3 +24,6 @@ shape = SubResource("CapsuleShape2D_vuk0x")
 [node name="Timer" type="Timer" parent="." unique_id=1462622923]
 wait_time = 0.1
 one_shot = true
+
+[node name="Marker2D" type="Marker2D" parent="." unique_id=1890734595]
+position = Vector2(-80, 0)

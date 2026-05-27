@@ -1,5 +1,7 @@
 class_name Worm extends CharacterBody2D
 @onready var timer: Timer = $Timer
+@onready var marker: Marker2D = $Marker2D
+
 const MISSILE = preload("uid://siacw3omdria")
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
@@ -9,7 +11,7 @@ enum Weapons{
 	Grenade
 }
 
-var bullet_velocity := 600.0
+var weapon_velocity := 600.0
 var is_active: bool = false
 var curr_weapon: Weapons = Weapons.Missile
 
@@ -17,24 +19,30 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if !event.is_pressed(): return
 		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
-			bullet_velocity += 20
-			bullet_velocity = clamp(bullet_velocity, 100, 1500)
+			weapon_velocity += 20
+			weapon_velocity = clamp(weapon_velocity, 100, 1500)
 		if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-			bullet_velocity -= 20
-			bullet_velocity = clamp(bullet_velocity, 100, 1500)
+			weapon_velocity -= 20
+			weapon_velocity = clamp(weapon_velocity, 100, 1500)
+
+func _process(delta: float) -> void:
+	marker.look_at(get_global_mouse_position())
+	if is_active:
+		if Input.is_action_just_pressed("shoot"):
+			if curr_weapon == Weapons.Missile:
+				var missile = MISSILE.instantiate()
+				get_parent().add_child(missile)
+				missile.transform = marker.global_transform
+				missile.velocity = weapon_velocity * missile.transform.x
+				missile.gravity = GRAVITY
+
 
 func _physics_process(delta: float) -> void:
 	if !is_active:
 		#apply gravity, apply knockback
 		return
 	
-	if Input.is_action_just_pressed("shoot"):
-		if curr_weapon == Weapons.Missile:
-			var missile = MISSILE.instantiate()
-			get_parent().add_child(missile)
-			missile.transform = global_transform
-			missile.velocity = bullet_velocity * missile.transform.x
-			missile.gravity = GRAVITY
+
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta

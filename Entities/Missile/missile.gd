@@ -2,7 +2,7 @@ class_name Missile extends RigidBody2D
 @onready var explosion: CollisionPolygon2D = $ExplosionArea/CollisionPolygon2D
 
 var gravity:float = 0.0
-var velocity:Vector2 = Vector2.ZERO
+var velocity:Vector2
 var hurt:Array[Worm] = []
 var explosion_force: float = 350.0
 
