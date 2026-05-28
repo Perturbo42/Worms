@@ -9,13 +9,16 @@
 script = ExtResource("1_guujs")
 
 [node name="Terrain" parent="." unique_id=138426319 instance=ExtResource("2_4idsg")]
+scale = Vector2(4, 4)
 
 [node name="Camera" parent="." unique_id=146307843 instance=ExtResource("3_4idsg")]
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
 
 [node name="Worms" type="Node2D" parent="." unique_id=354063855]
 
 [node name="Worm" parent="Worms" unique_id=1343384529 instance=ExtResource("2_0adbh")]
-position = Vector2(-20, 431)
+position = Vector2(-38, 895)
 
 [node name="Worm2" parent="Worms" unique_id=1142802411 instance=ExtResource("2_0adbh")]
-position = Vector2(654, 437)
+position = Vector2(1380, 874)
