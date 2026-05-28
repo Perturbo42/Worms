@@ -5,5 +5,5 @@ func _ready() -> void:
 		await get_tree().process_frame
 	self.global_position = Global.active_worm.global_position
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	global_position = Global.active_worm.global_position

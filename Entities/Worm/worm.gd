@@ -10,8 +10,9 @@ const GROUND_DECEL = 1400
 const AIR_SPEED = 150.0
 const AIR_ACCEL = 500
 const AIR_DECEL = 0
-const JUMP_VELOCITY = -400.0
+const JUMP_VELOCITY = -500.0
 const GRAVITY = 400.0
+
 enum Weapons{
 	Missile,
 	Grenade

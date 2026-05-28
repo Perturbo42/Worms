@@ -4,7 +4,7 @@ class_name Missile extends RigidBody2D
 var gravity:float = 0.0
 var velocity:Vector2
 var hurt:Array[Worm] = []
-var explosion_force: float = 350.0
+var explosion_force: float = 200.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -13,7 +13,7 @@ func _ready() -> void:
 	var points = PackedVector2Array()
 	for i in range(nb_points+1):
 		var point = deg_to_rad(i * 360.0 / nb_points - 90)
-		points.push_back(Vector2.ZERO + Vector2(cos(point), sin(point)) * 100)
+		points.push_back(Vector2.ZERO + Vector2(cos(point), sin(point)) * explosion_force)
 	explosion.polygon = points
 	pass # Replace with function body.
 
