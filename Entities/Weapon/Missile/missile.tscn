@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://siacw3omdria"]
 
-[ext_resource type="Texture2D" uid="uid://bao2xprwfo5oj" path="res://Entities/Missile/Missile.png" id="1_3i05i"]
-[ext_resource type="Script" uid="uid://cni2xv8ynq3jg" path="res://Entities/Missile/missile.gd" id="1_kyyaa"]
+[ext_resource type="Texture2D" uid="uid://bao2xprwfo5oj" path="res://Entities/Weapon/Missile/Missile.png" id="1_3i05i"]
+[ext_resource type="Script" uid="uid://cni2xv8ynq3jg" path="res://Entities/Weapon/Missile/missile.gd" id="1_kyyaa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kyyaa"]
 size = Vector2(66, 20)
@@ -9,10 +9,12 @@ size = Vector2(66, 20)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bjh0i"]
 size = Vector2(66, 20)
 
-[node name="Missile" type="RigidBody2D" unique_id=1257333313]
+[node name="Missile" type="RigidBody2D" unique_id=1257333313 node_paths=PackedStringArray("explosion")]
 collision_layer = 4
 collision_mask = 2
 script = ExtResource("1_kyyaa")
+explosion = NodePath("ExplosionArea/CollisionPolygon2D")
+explosion_force = 200.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1574229191]
 texture_filter = 1
@@ -37,6 +39,6 @@ polygon = PackedVector2Array(-44, -73, -162.6298, -57, -184, 29, -154.31917, 111
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1279713604]
 shape = SubResource("RectangleShape2D_bjh0i")
 
-[connection signal="body_entered" from="MissileArea" to="." method="_on_missile_area_body_entered"]
+[connection signal="body_entered" from="MissileArea" to="." method="_on_main_area_body_entered"]
 [connection signal="body_entered" from="ExplosionArea" to="." method="_on_explosion_area_body_entered"]
 [connection signal="body_exited" from="ExplosionArea" to="." method="_on_explosion_area_body_exited"]

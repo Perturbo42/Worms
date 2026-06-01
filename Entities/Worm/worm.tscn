@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://dhl8qxwj4wkqf" path="res://Entities/Worm/worm.gd" id="1_cigj8"]
 [ext_resource type="Texture2D" uid="uid://dy3x12qfampny" path="res://Entities/Worm/Worm.png" id="2_vuk0x"]
+[ext_resource type="Texture2D" uid="uid://bao2xprwfo5oj" path="res://Entities/Weapon/Missile/Missile.png" id="3_764uf"]
+[ext_resource type="Texture2D" uid="uid://yk7omelq6h7n" path="res://Entities/Weapon/Grenade/Grenade.png" id="4_rmi03"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vuk0x"]
 radius = 54.0
@@ -11,7 +13,7 @@ height = 190.0
 collision_mask = 3
 script = ExtResource("1_cigj8")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=384633657]
+[node name="WormSprite" type="Sprite2D" parent="." unique_id=384633657]
 texture_filter = 1
 texture_repeat = 1
 texture = ExtResource("2_vuk0x")
@@ -27,6 +29,12 @@ one_shot = true
 [node name="Marker2D" type="Marker2D" parent="." unique_id=1890734595]
 position = Vector2(-80, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="Marker2D" unique_id=2117049481]
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("2_vuk0x")
+[node name="Missile" type="Sprite2D" parent="Marker2D" unique_id=1066015799]
+texture_filter = 1
+texture_repeat = 1
+texture = ExtResource("3_764uf")
+
+[node name="Grenade" type="Sprite2D" parent="Marker2D" unique_id=120912463]
+texture_filter = 1
+texture_repeat = 1
+texture = ExtResource("4_rmi03")

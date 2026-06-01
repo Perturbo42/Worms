@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dbem0u85g43in"]
 
-[ext_resource type="Script" uid="uid://36p8j1w13nti" path="res://Entities/Grenade/grenade.gd" id="1_rl1y7"]
-[ext_resource type="Texture2D" uid="uid://yk7omelq6h7n" path="res://Entities/Grenade/Grenade.png" id="2_xf5wc"]
+[ext_resource type="Script" uid="uid://36p8j1w13nti" path="res://Entities/Weapon/Grenade/grenade.gd" id="1_rl1y7"]
+[ext_resource type="Texture2D" uid="uid://yk7omelq6h7n" path="res://Entities/Weapon/Grenade/Grenade.png" id="2_xf5wc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8386v"]
 radius = 11.0
@@ -9,8 +9,10 @@ radius = 11.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_p2ua0"]
 radius = 11.0
 
-[node name="Grenade" type="RigidBody2D" unique_id=1992166537]
+[node name="Grenade" type="RigidBody2D" unique_id=1992166537 node_paths=PackedStringArray("explosion")]
 script = ExtResource("1_rl1y7")
+explosion = NodePath("ExplosionArea/CollisionShape2D")
+explosion_force = 200.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=611931039]
 texture_filter = 1
@@ -31,3 +33,7 @@ polygon = PackedVector2Array(-16, -18, -33, 0, -18, 32, 20, 33, 31, 0, 19, -18)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1474961780]
 position = Vector2(-5, 5)
 shape = SubResource("CircleShape2D_p2ua0")
+
+[connection signal="body_entered" from="GrenadeArea" to="." method="_on_main_area_body_entered"]
+[connection signal="body_entered" from="ExplosionArea" to="." method="_on_explosion_area_body_entered"]
+[connection signal="body_exited" from="ExplosionArea" to="." method="_on_explosion_area_body_exited"]
