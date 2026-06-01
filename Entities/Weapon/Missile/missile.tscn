@@ -14,7 +14,8 @@ collision_layer = 4
 collision_mask = 2
 script = ExtResource("1_kyyaa")
 explosion = NodePath("ExplosionArea/CollisionPolygon2D")
-explosion_force = 200.0
+explosion_size = 200.0
+explosion_force = 600.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1574229191]
 texture_filter = 1

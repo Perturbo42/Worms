@@ -10,8 +10,11 @@ radius = 11.0
 radius = 11.0
 
 [node name="Grenade" type="RigidBody2D" unique_id=1992166537 node_paths=PackedStringArray("explosion")]
+collision_layer = 4
+collision_mask = 2
 script = ExtResource("1_rl1y7")
 explosion = NodePath("ExplosionArea/CollisionShape2D")
+explosion_size = null
 explosion_force = 200.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=611931039]
@@ -20,12 +23,16 @@ texture_repeat = 1
 texture = ExtResource("2_xf5wc")
 
 [node name="GrenadeArea" type="Area2D" parent="." unique_id=1508110833]
+collision_layer = 4
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GrenadeArea" unique_id=143169486]
 position = Vector2(-5, 5)
 shape = SubResource("CircleShape2D_8386v")
 
 [node name="ExplosionArea" type="Area2D" parent="." unique_id=1833627271]
+collision_layer = 8
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="ExplosionArea" unique_id=1659515901]
 polygon = PackedVector2Array(-16, -18, -33, 0, -18, 32, 20, 33, 31, 0, 19, -18)

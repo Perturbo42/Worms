@@ -1,8 +1,6 @@
 class_name Missile extends Explosive
-var gravity:float = 0.0
-var velocity:Vector2
 
-func _physics_process(delta: float) -> void:
-	velocity.y += gravity * delta
-	position += velocity * delta
-	rotation = velocity.angle()
+func _on_main_area_body_entered(body: Node2D) -> void:
+	if body.is_in_group("Worm"):
+		return
+	explode(body)
