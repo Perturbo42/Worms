@@ -1,10 +1,14 @@
 class_name Grenade extends Explosive
-var grenade_timer: float = 3.0
+@onready var grenade_area: Area2D = $ExplosionArea
+var grenade_timer: float = 1.0
+var exploding: bool = false
 
 func _process(delta: float) -> void:
 	grenade_timer -= delta
-
-func _on_main_area_body_entered(body: Node2D) -> void:
-	if body.is_in_group("Worm"):
-		return
-	
+	if grenade_timer <= 0 and !exploding:
+		exploding = true
+		for body in grenade_area.get_overlapping_bodies():
+			if !body.is_in_group("Worm"):
+				explode(body)
+		queue_free()
+		

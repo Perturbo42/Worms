@@ -7,10 +7,10 @@ const MISSILE = preload("uid://siacw3omdria")
 const GRENADE = preload("res://Entities/Weapon/Grenade/grenade.tscn")
 const GROUND_SPEED = 300.0
 const GROUND_ACCEL = 1200
-const GROUND_DECEL = 1400
-const AIR_SPEED = 150.0
-const AIR_ACCEL = 500
-const AIR_DECEL = 0
+const GROUND_DECEL = 1500
+const AIR_SPEED = 200.0
+const AIR_ACCEL = 800
+const AIR_DECEL = 1000
 const JUMP_VELOCITY = -500.0
 const GRAVITY = 400.0
 
@@ -22,7 +22,7 @@ var weapon_list: Array[String] = ["Missile", "Grenade"]
 var weapon_sprite_dict = {}
 
 var dir: float = -1
-var weapon_velocity := 1500.0
+var weapon_velocity := 1000.0
 var is_active: bool = false
 var curr_weapon: Weapons = Weapons.Missile
 
@@ -38,10 +38,10 @@ func _input(event: InputEvent) -> void:
 		if !event.is_pressed(): return
 		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
 			weapon_velocity += 20
-			weapon_velocity = clamp(weapon_velocity, 100, 2000)
+			weapon_velocity = clamp(weapon_velocity, 100, 1500)
 		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 			weapon_velocity -= 20
-			weapon_velocity = clamp(weapon_velocity, 100, 2000)
+			weapon_velocity = clamp(weapon_velocity, 100, 1500)
 	
 	elif event is InputEvent:
 		if !event.is_pressed(): return
@@ -58,13 +58,13 @@ func _process(_delta: float) -> void:
 				var missile = MISSILE.instantiate()
 				get_parent().add_child(missile)
 				missile.transform = marker.global_transform
-				missile.velocity = weapon_velocity * missile.transform.x
+				missile.linear_velocity = weapon_velocity * missile.transform.x
 				missile.gravity = GRAVITY
 			if curr_weapon == Weapons.Grenade:
 				var grenade = GRENADE.instantiate()
 				get_parent().add_child(grenade)
 				grenade.transform = marker.global_transform
-				grenade.velocity = weapon_velocity * grenade.transform.x * 0.5
+				grenade.linear_velocity = weapon_velocity * grenade.transform.x * 0.5
 				grenade.gravity = GRAVITY
 
 

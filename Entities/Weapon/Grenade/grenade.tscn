@@ -14,8 +14,8 @@ collision_layer = 4
 collision_mask = 2
 script = ExtResource("1_rl1y7")
 explosion = NodePath("ExplosionArea/CollisionShape2D")
-explosion_size = null
-explosion_force = 200.0
+explosion_size = 200.0
+explosion_force = 600.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=611931039]
 texture_filter = 1
@@ -40,7 +40,3 @@ polygon = PackedVector2Array(-16, -18, -33, 0, -18, 32, 20, 33, 31, 0, 19, -18)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1474961780]
 position = Vector2(-5, 5)
 shape = SubResource("CircleShape2D_p2ua0")
-
-[connection signal="body_entered" from="GrenadeArea" to="." method="_on_main_area_body_entered"]
-[connection signal="body_entered" from="ExplosionArea" to="." method="_on_explosion_area_body_entered"]
-[connection signal="body_exited" from="ExplosionArea" to="." method="_on_explosion_area_body_exited"]

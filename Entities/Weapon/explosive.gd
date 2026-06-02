@@ -3,7 +3,6 @@ class_name Explosive extends RigidBody2D
 @export var explosion_size: float
 @export var explosion_force: float
 var gravity:float = 0.0
-var velocity:Vector2
 
 var hurt:Array[Worm] = []
 # Called when the node enters the scene tree for the first time.
@@ -18,9 +17,9 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 func _physics_process(delta: float) -> void:
-	velocity.y += gravity * delta
-	position += velocity * delta
-	rotation = velocity.angle()
+	linear_velocity.y += gravity * delta
+	position += linear_velocity * delta
+	rotation = linear_velocity.angle()
 
 func explode(collider: Node2D):
 	for x in hurt:
