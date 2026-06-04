@@ -3,6 +3,8 @@ class_name Worm extends CharacterBody2D
 @onready var timer: Timer = $Timer
 @onready var marker: Marker2D = $Marker2D
 
+signal weapon_shot
+
 const MISSILE = preload("uid://siacw3omdria")
 const GRENADE = preload("res://Entities/Weapon/Grenade/grenade.tscn")
 const GROUND_SPEED = 300.0
@@ -54,19 +56,24 @@ func _process(_delta: float) -> void:
 	marker.look_at(get_global_mouse_position())
 	if is_active:
 		if Input.is_action_just_pressed("shoot"):
+			is_active = false
+			var weap = Explosive
 			if curr_weapon == Weapons.Missile:
-				var missile = MISSILE.instantiate()
-				get_parent().add_child(missile)
-				missile.transform = marker.global_transform
-				missile.linear_velocity = weapon_velocity * missile.transform.x
-				missile.gravity = GRAVITY
+				weap = MISSILE.instantiate()
+				weap.transform = marker.global_transform
+				weap.linear_velocity = weapon_velocity * weap.transform.x
 			if curr_weapon == Weapons.Grenade:
-				var grenade = GRENADE.instantiate()
-				get_parent().add_child(grenade)
-				grenade.transform = marker.global_transform
-				grenade.linear_velocity = weapon_velocity * grenade.transform.x * 0.5
-				grenade.gravity = GRAVITY
+				weap = GRENADE.instantiate()
+				weap.transform = marker.global_transform
+				weap.linear_velocity = weapon_velocity * weap.transform.x * 0.5
+			Global.weapon = weap
+			weap.exploded.connect(weapon_exploded)
+			weap.gravity = GRAVITY
+			get_parent().add_child(weap)
+			
 
+func weapon_exploded():
+	weapon_shot.emit(self)
 
 
 func _physics_process(delta: float) -> void:

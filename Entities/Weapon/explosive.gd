@@ -1,4 +1,5 @@
 class_name Explosive extends RigidBody2D
+signal exploded
 @export var explosion: CollisionPolygon2D
 @export var explosion_size: float
 @export var explosion_force: float
@@ -27,6 +28,8 @@ func explode(collider: Node2D):
 		x.velocity += direction * explosion_force
 	if collider.is_in_group("Destructible"):
 		collider.owner.clip(explosion)
+	Global.weapon = null
+	exploded.emit()
 	call_deferred("queue_free")
 
 func _on_explosion_area_body_entered(body: Node2D) -> void:
