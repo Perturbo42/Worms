@@ -55,7 +55,7 @@ func _input(event: InputEvent) -> void:
 func _process(_delta: float) -> void:
 	marker.look_at(get_global_mouse_position())
 	if is_active:
-		if Input.is_action_just_pressed("shoot"):
+		if Input.is_action_just_pressed("shoot") and is_on_floor():
 			is_active = false
 			var weap = Explosive
 			if curr_weapon == Weapons.Missile:
@@ -78,7 +78,7 @@ func weapon_exploded():
 
 func _physics_process(delta: float) -> void:
 	if !is_active:
-		#apply gravity, apply knockback
+		is_not_active(delta)
 		return
 	
 	#Read Input
@@ -103,14 +103,21 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, decel * delta)
 	
 	# Add the gravity.
-	if not is_on_floor():
-		velocity += get_gravity() * delta
+	apply_gravity(delta)
 
 	# Handle jump.
 	if jump_pressed and is_on_floor():
 		velocity.y = JUMP_VELOCITY
-
+	
 	move_and_slide()
+
+func is_not_active(delta: float):
+	apply_gravity(delta)
+	move_and_slide()
+
+func apply_gravity(delta: float):
+	if not is_on_floor():
+		velocity += get_gravity() * delta
 
 func change_weapon(weapon: Weapons):
 	weapon_sprite_dict.get(weapon_list[curr_weapon]).visible = false
