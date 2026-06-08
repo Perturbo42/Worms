@@ -1,6 +1,5 @@
 class_name Worm extends CharacterBody2D
 @onready var sprite: Sprite2D = $WormSprite
-@onready var timer: Timer = $Timer
 @onready var marker: Marker2D = $Marker2D
 
 signal weapon_shot
@@ -25,7 +24,10 @@ var weapon_sprite_dict = {}
 
 var dir: float = -1
 var weapon_velocity := 1000.0
-var is_active: bool = false
+var is_active: bool = false:
+	set(value):
+		is_active = value
+		marker.visible = is_active
 var curr_weapon: Weapons = Weapons.Missile
 
 func _ready() -> void:
@@ -40,10 +42,9 @@ func _input(event: InputEvent) -> void:
 		if !event.is_pressed(): return
 		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
 			weapon_velocity += 20
-			weapon_velocity = clamp(weapon_velocity, 100, 1500)
 		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 			weapon_velocity -= 20
-			weapon_velocity = clamp(weapon_velocity, 100, 1500)
+		weapon_velocity = clamp(weapon_velocity, 100, 1500)
 	
 	elif event is InputEvent:
 		if !event.is_pressed(): return

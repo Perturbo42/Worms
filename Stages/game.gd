@@ -20,8 +20,7 @@ func give_turn(worm_num: int):
 	# wait until explosive is finished
 	worm.is_active = true
 
-func weapon_shot(worm: Worm):
-	
+func weapon_shot(_worm: Worm):
 	Global.worm_num = (Global.worm_num + 1) % worm_list.size()
 	give_turn(Global.worm_num)
 	

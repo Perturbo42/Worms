@@ -1,6 +1,6 @@
 class_name Grenade extends Explosive
 @onready var grenade_area: Area2D = $ExplosionArea
-var grenade_timer: float = 1.0
+var grenade_timer: float = 1.5
 var exploding: bool = false
 
 func _process(delta: float) -> void:
